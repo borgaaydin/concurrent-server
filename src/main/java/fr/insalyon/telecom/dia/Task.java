@@ -33,7 +33,7 @@ class Task extends RecursiveAction {
 
             while (true) {
                 String message = br.readLine();
-                System.out.println(message);
+                System.out.println("[server] msg received : "+message);
                 String[] splitMessage = message.split("\\s");
 
                 switch (splitMessage[0]) {
@@ -41,12 +41,14 @@ class Task extends RecursiveAction {
                         if(splitMessage[1] != null) {
                             String data = br.readLine();
                             chashmap.put(splitMessage[1], data);
+                            System.out.println("[server] data written on chashmap : "+splitMessage[1]+", "+data);
+                            System.out.println("[server] PUT response : ok");
                             out.println("ok");
                         }
                         break;
                     case "GET":
                         if(splitMessage[1] != null) {
-                            System.out.println(chashmap.get(splitMessage[1]));
+                            System.out.println("[server] GET response (key="+splitMessage[1]+") : "+chashmap.get(splitMessage[1]));
                             out.println(chashmap.get(splitMessage[1]));
                         }
                         break;
@@ -54,7 +56,6 @@ class Task extends RecursiveAction {
                         chashmap.remove(splitMessage[1]);
                         break;
                     case "KEYS":
-
                         chashmap.forEach((k,v)->out.println(k+", "+v));
                         break;
                     default:
